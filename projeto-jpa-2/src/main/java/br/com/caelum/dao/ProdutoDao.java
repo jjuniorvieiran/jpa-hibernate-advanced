@@ -12,6 +12,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import br.com.caelum.model.Loja;
@@ -44,7 +45,7 @@ public class ProdutoDao {
 		List<Predicate> predicates = new ArrayList<>();
 
 		if (!nome.isEmpty()) {
-			Predicate nomeIgual = criteriaBuilder.like(nomePath, nome);
+			Predicate nomeIgual = criteriaBuilder.like(nomePath, "%" + nome + "%");
 			predicates.add(nomeIgual);
 		}
 		if (categoriaId != null) {
