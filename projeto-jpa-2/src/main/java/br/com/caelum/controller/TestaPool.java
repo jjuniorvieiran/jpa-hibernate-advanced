@@ -13,11 +13,9 @@ public class TestaPool {
 
         for(int i = 0; i < 10; i ++) {
             dataSource.getConnection();
-
             System.out.println(i + " - Conexões existentes: " + dataSource.getNumConnections());
             System.out.println(i + " - Conexões ocupadas: " + dataSource.getNumBusyConnections());
             System.out.println(i + " - Conexões ociosas: " + dataSource.getNumIdleConnections());
-
             System.out.println("");
         }
 
