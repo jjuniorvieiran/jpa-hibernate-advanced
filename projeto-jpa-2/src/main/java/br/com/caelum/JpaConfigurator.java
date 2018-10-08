@@ -6,6 +6,8 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.stat.Statistics;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -58,9 +60,16 @@ public class JpaConfigurator {
 		props.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 		props.setProperty("hibernate.cache.use_second_level_cache", "true");
 		props.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory");
-
+		props.setProperty("hibernate.generate_statistics", "true");
+		 	
 		entityManagerFactory.setJpaProperties(props);
 		return entityManagerFactory;
+	}
+	
+	@Bean
+	public Statistics statistics(EntityManagerFactory emf) { 
+	    SessionFactory sessionFactory =  emf.unwrap(SessionFactory.class);
+	    return sessionFactory.getStatistics();
 	}
 
 	@Bean
